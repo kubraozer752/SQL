@@ -30,7 +30,8 @@ WHERE film_id = ANY
 ```
 #### 4.Payment tablosunda en fazla sayıda alışveriş yapan müşterileri(customer) sıralayınız.
 ```sql
-SELECT first_name, last_name FROM customer
-JOIN payment ON customer.customer_id = payment.customer_id
-WHERE amount = (SELECT MAX(amount) FROM payment);
+SELECT customer.customer_id, COUNT(payment_id) FROM payment
+JOIN customer ON customer.customer_id = payment.customer_id
+GROUP BY customer.customer_id 
+ORDER BY COUNT(payment_id) DESC;
 ```
